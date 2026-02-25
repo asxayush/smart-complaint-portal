@@ -3,47 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartCity 3D | Infrastructure Portal</title>
+    <title>SmartCity | 3D Infrastructure Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-slate-900 overflow-x-hidden">
+<body class="bg-[#0f172a] text-slate-200 overflow-x-hidden">
 
-    <div class="fixed top-20 left-10 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-    <div class="fixed bottom-20 right-10 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl"></div>
+    <div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px]"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-amber-600/10 rounded-full blur-[120px]"></div>
 
-    <main class="perspective-1000 min-h-screen flex items-center justify-center p-6">
+    <main class="perspective-container min-h-screen flex items-center justify-center p-6">
         
-        <div id="login-selection" class="container-3d active">
+        <div id="login-selection" class="view-container">
             <div class="glass-card p-10 text-center">
-                <h1 class="text-4xl font-bold text-white mb-2 tracking-tight">Smart City</h1>
-                <p class="text-slate-400 mb-8 uppercase tracking-widest text-xs">Infrastructure OS v2.0</p>
-                
+                <h1 class="text-5xl font-bold text-white mb-2 tracking-tighter">Smart City</h1>
+                <p class="text-amber-500 font-medium tracking-widest text-xs uppercase mb-8">Management System v2.0</p>
                 <div class="flex flex-col gap-4">
-                    <button onclick="showView('citizen-login')" class="btn-3d btn-primary">Citizen Portal</button>
-                    <button onclick="showView('admin-login')" class="btn-3d btn-secondary">Admin Dashboard</button>
+                    <button onclick="showView('citizen-login')" class="btn-3d btn-primary">Citizen Login</button>
+                    <button onclick="showView('admin-login')" class="btn-3d btn-secondary">Admin Access</button>
                 </div>
             </div>
         </div>
 
-        <div id="citizen-dashboard" class="container-3d hidden">
-            <div class="glass-card p-8 w-full max-w-2xl">
-                <h2 class="text-2xl font-semibold text-white mb-6">File New Report</h2>
-                <form id="complaint-form" class="space-y-4">
-                    <select id="category" class="input-3d" required>
-                        <option value="">Department Selection</option>
-                        <option value="Electricity">Electricity</option>
-                        <option value="Water">Water Supply</option>
-                        <option value="Infrastructure">Infrastructure</option>
-                    </select>
-                    <textarea id="description" rows="4" class="input-3d" placeholder="Describe the incident..."></textarea>
-                    <button type="submit" class="btn-3d btn-primary w-full">Deploy Report</button>
-                </form>
-                <button class="text-slate-500 mt-6 underline text-sm hover:text-white transition" onclick="showView('login-selection')">Secure Logout</button>
+        <div id="citizen-login" class="view-container hidden">
+            <div class="glass-card p-8 w-full max-w-md">
+                <h2 class="text-2xl font-bold text-white mb-6">Citizen Portal</h2>
+                <input type="text" id="citizen-user" class="input-3d" placeholder="Citizen ID / Username">
+                <button onclick="showView('citizen-dashboard')" class="btn-3d btn-primary w-full">Login</button>
+                <button onclick="showView('login-selection')" class="mt-4 text-slate-500 hover:text-white transition text-sm">Return Home</button>
             </div>
         </div>
 
-        </main>
+        <div id="citizen-dashboard" class="view-container hidden">
+            <div class="glass-card p-8 w-full max-w-2xl">
+                <h2 class="text-2xl font-bold text-white mb-6">File a Complaint</h2>
+                <form id="complaint-form" class="space-y-4 text-left">
+                    <div>
+                        <label class="text-xs text-slate-400 ml-2 uppercase font-bold">Category</label>
+                        <select id="category" class="input-3d" required>
+                            <option value="Electricity">Electricity</option>
+                            <option value="Water Supply">Water Supply</option>
+                            <option value="Infrastructure">Infrastructure/Roads</option>
+                            <option value="Sanitation">Sanitation</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-xs text-slate-400 ml-2 uppercase font-bold">Details</label>
+                        <textarea id="description" rows="3" class="input-3d" placeholder="Describe the issue..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-3d btn-primary w-full">Submit Report</button>
+                </form>
+                <div class="mt-8 border-t border-white/10 pt-6">
+                    <h3 class="text-sm font-bold text-amber-500 mb-4 uppercase">My Reports</h3>
+                    <ul id="my-list" class="space-y-2 text-sm text-slate-300"></ul>
+                </div>
+                <button onclick="showView('login-selection')" class="mt-6 text-red-400 text-xs font-bold uppercase tracking-widest">Logout</button>
+            </div>
+        </div>
+
+        <div id="admin-login" class="view-container hidden">
+            <div class="glass-card p-8 w-full max-w-md">
+                <h2 class="text-2xl font-bold text-white mb-6">Central Admin</h2>
+                <input type="password" id="admin-pass" class="input-3d" placeholder="Admin PIN Code">
+                <button onclick="adminLogin()" class="btn-3d btn-secondary w-full">Verify Identity</button>
+                <button onclick="showView('login-selection')" class="mt-4 text-slate-500 hover:text-white transition text-sm">Back</button>
+            </div>
+        </div>
+
+        <div id="admin-dashboard" class="view-container hidden">
+            <div class="glass-card p-8 w-full max-w-4xl overflow-hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-white">Admin Command Center</h2>
+                    <span class="bg-blue-500/20 text-blue-400 px-4 py-1 rounded-full text-xs font-bold border border-blue-500/30">
+                        Live: <span id="total-count">0</span> Issues
+                    </span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-white/5 text-slate-400">
+                            <tr>
+                                <th class="p-4 rounded-l-lg">ID</th>
+                                <th class="p-4">Category</th>
+                                <th class="p-4">Status</th>
+                                <th class="p-4 rounded-r-lg">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body"></tbody>
+                    </table>
+                </div>
+                <button onclick="showView('login-selection')" class="mt-8 btn-3d bg-red-600/20 text-red-400 border border-red-600/30">Exit System</button>
+            </div>
+        </div>
+
+    </main>
 
     <script src="script.js"></script>
 </body>
