@@ -3,74 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartCity | Professional Portal</title>
+    <title>SmartCity 3D | Infrastructure Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="bg-slate-900 overflow-x-hidden">
 
-    <div id="login-selection" class="container">
-        <h1>Smart City</h1>
-        <p class="subtitle">Infrastructure Management System</p>
-        <div class="button-group">
-            <button onclick="showView('citizen-login')">Citizen Login</button>
-            <button onclick="showView('admin-login')">Admin Login</button>
+    <div class="fixed top-20 left-10 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+    <div class="fixed bottom-20 right-10 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl"></div>
+
+    <main class="perspective-1000 min-h-screen flex items-center justify-center p-6">
+        
+        <div id="login-selection" class="container-3d active">
+            <div class="glass-card p-10 text-center">
+                <h1 class="text-4xl font-bold text-white mb-2 tracking-tight">Smart City</h1>
+                <p class="text-slate-400 mb-8 uppercase tracking-widest text-xs">Infrastructure OS v2.0</p>
+                
+                <div class="flex flex-col gap-4">
+                    <button onclick="showView('citizen-login')" class="btn-3d btn-primary">Citizen Portal</button>
+                    <button onclick="showView('admin-login')" class="btn-3d btn-secondary">Admin Dashboard</button>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div id="citizen-login" class="container hidden">
-        <h2>Citizen Login</h2>
-        <input type="text" id="citizen-user" placeholder="Username">
-        <button onclick="showView('citizen-dashboard')">Login</button>
-        <button class="back-btn" onclick="showView('login-selection')">Back</button>
-    </div>
-
-    <div id="citizen-dashboard" class="container hidden">
-        <h2>File a Complaint</h2>
-        <form id="complaint-form">
-            <select id="category" required>
-                <option value="">Select Department</option>
-                <option value="Electricity">Electricity</option>
-                <option value="Water Supply">Water Supply</option>
-                <option value="Roads">Roads & Infrastructure</option>
-                <option value="Sanitation">Sanitation</option>
-            </select>
-            <textarea id="description" rows="4" placeholder="Describe the issue in detail..." required></textarea>
-            <button type="submit">Submit Complaint</button>
-        </form>
-        <div class="history-section">
-            <h3>My Previous Complaints</h3>
-            <ul id="my-list"></ul>
+        <div id="citizen-dashboard" class="container-3d hidden">
+            <div class="glass-card p-8 w-full max-w-2xl">
+                <h2 class="text-2xl font-semibold text-white mb-6">File New Report</h2>
+                <form id="complaint-form" class="space-y-4">
+                    <select id="category" class="input-3d" required>
+                        <option value="">Department Selection</option>
+                        <option value="Electricity">Electricity</option>
+                        <option value="Water">Water Supply</option>
+                        <option value="Infrastructure">Infrastructure</option>
+                    </select>
+                    <textarea id="description" rows="4" class="input-3d" placeholder="Describe the incident..."></textarea>
+                    <button type="submit" class="btn-3d btn-primary w-full">Deploy Report</button>
+                </form>
+                <button class="text-slate-500 mt-6 underline text-sm hover:text-white transition" onclick="showView('login-selection')">Secure Logout</button>
+            </div>
         </div>
-        <button class="logout-btn" onclick="showView('login-selection')">Logout</button>
-    </div>
 
-    <div id="admin-login" class="container hidden">
-        <h2>Admin Portal</h2>
-        <input type="password" id="admin-pass" placeholder="Enter Admin PIN">
-        <button onclick="adminLogin()">Access Dashboard</button>
-        <button class="back-btn" onclick="showView('login-selection')">Back</button>
-    </div>
-
-    <div id="admin-dashboard" class="container dashboard-wide hidden">
-        <h2>Admin Control Panel</h2>
-        <div class="stats-bar">
-            <p>Active Complaints: <span id="total-count">0</span></p>
-        </div>
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Category</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="admin-table-body"></tbody>
-            </table>
-        </div>
-        <button class="logout-btn" onclick="showView('login-selection')">Logout</button>
-    </div>
+        </main>
 
     <script src="script.js"></script>
 </body>
