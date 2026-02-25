@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap');
+
+:root {
+    --navy: #1a1a2e;
+    --gold: #c5a059;
+    --light-gray: #f4f7f6;
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--light-gray);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Logic for Hiding/Showing Sections */
+.hidden { display: none !important; }
+
+.container {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    border-top: 6px solid var(--navy);
+}
+
+.dashboard-wide { max-width: 800px; }
+
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--navy);
+    margin-top: 0;
+}
+
+.subtitle { color: #666; margin-bottom: 30px; font-size: 0.9rem; }
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fafafa;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: 0.3s;
+    margin-bottom: 10px;
+}
+
+button:hover { background: var(--gold); }
+
+.back-btn { background: transparent; color: #888; text-decoration: underline; }
+.back-btn:hover { color: var(--navy); background: transparent; }
+
+.logout-btn { background: #8e44ad; margin-top: 20px; }
+
+/* Table Styles */
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th { background: #eee; padding: 12px; text-align: left; font-size: 0.8rem; }
+td { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+
+.status-pending { color: #d35400; font-weight: bold; }
+.status-resolved { color: #27ae60; font-weight: bold; }

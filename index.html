@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCity | Professional Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="login-selection" class="container">
+        <h1>Smart City</h1>
+        <p class="subtitle">Infrastructure Management System</p>
+        <div class="button-group">
+            <button onclick="showView('citizen-login')">Citizen Login</button>
+            <button onclick="showView('admin-login')">Admin Login</button>
+        </div>
+    </div>
+
+    <div id="citizen-login" class="container hidden">
+        <h2>Citizen Login</h2>
+        <input type="text" id="citizen-user" placeholder="Username">
+        <button onclick="showView('citizen-dashboard')">Login</button>
+        <button class="back-btn" onclick="showView('login-selection')">Back</button>
+    </div>
+
+    <div id="citizen-dashboard" class="container hidden">
+        <h2>File a Complaint</h2>
+        <form id="complaint-form">
+            <select id="category" required>
+                <option value="">Select Department</option>
+                <option value="Electricity">Electricity</option>
+                <option value="Water Supply">Water Supply</option>
+                <option value="Roads">Roads & Infrastructure</option>
+                <option value="Sanitation">Sanitation</option>
+            </select>
+            <textarea id="description" rows="4" placeholder="Describe the issue in detail..." required></textarea>
+            <button type="submit">Submit Complaint</button>
+        </form>
+        <div class="history-section">
+            <h3>My Previous Complaints</h3>
+            <ul id="my-list"></ul>
+        </div>
+        <button class="logout-btn" onclick="showView('login-selection')">Logout</button>
+    </div>
+
+    <div id="admin-login" class="container hidden">
+        <h2>Admin Portal</h2>
+        <input type="password" id="admin-pass" placeholder="Enter Admin PIN">
+        <button onclick="adminLogin()">Access Dashboard</button>
+        <button class="back-btn" onclick="showView('login-selection')">Back</button>
+    </div>
+
+    <div id="admin-dashboard" class="container dashboard-wide hidden">
+        <h2>Admin Control Panel</h2>
+        <div class="stats-bar">
+            <p>Active Complaints: <span id="total-count">0</span></p>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-table-body"></tbody>
+            </table>
+        </div>
+        <button class="logout-btn" onclick="showView('login-selection')">Logout</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
